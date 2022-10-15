@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+    <title>Registration App</title>
+</head>
+<body>
+    <div class="container">
+        <h1>REGISTRATION APP</h1>
+        <form action="/reg_number" method="post">
+        <div class="flashSucces">
+            <h5>{{messages.success}}</h5>
+        </div>
+        <div class="flashError">
+            <h5>{{messages.error}}</h5>
+        </div>
+           <div>
+             <label for="">Registration Number : </label>
+            <input type="text" name="regInput"><br>
+            <input type="submit" value="ADD">
+           </div>
+           <div class="radio">
+            <label for=""> 
+                <input type="radio" name="reg_number" id="">Bergville
+            </label>
+            <label for=""> 
+                <input type="radio" name="reg_number" id="">Durban
+            </label>
+            <label for="">
+                <input type="radio" name="reg_number" id="">Harding
+            </label>
+            <label for="">
+                <input type="radio" name="reg_number" id="">Newcastle
+            </label><br>
+            <input type="submit" value="SHOW">
+           </div>
+        </form>
+    </div>
+
+</body>
+</html>
