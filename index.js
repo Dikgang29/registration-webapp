@@ -30,20 +30,26 @@ app.use(flash());
 app.use(express.static('public'));
 
 app.get('/', (req,res)=>{
-    res.render('index')
+    res.render('index',{
+        
+    })
 })
 
 app.post('/reg_number', (req,res)=>{
     const {regInput} =  req.body;
-    let checksName = registration.regFromKZN(regInput);
-    console.log(checksName);
+    // console.log(regInput)
     if(!regInput){
         req.flash('error', 'Please enter a valid registration');
+    } else if(regInput){
+        const checksName = registration.regFromKZN(regInput);
+        console.log(checksName);
     }
     res.redirect('/')
-})
+});
 
+// app.get('/reg_number',(req,res)=>{
 
+// })
 
 const PORT = process.env.PORT || 3010
 app.listen(PORT, ()=>{
