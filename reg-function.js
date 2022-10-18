@@ -4,6 +4,7 @@ module.exports = function Registrations(){
 
     function regFromKZN(regNumber){
 
+        
         const reg = regNumber.toUpperCase()
         if(reg.startsWith('NB')){
             return reg;

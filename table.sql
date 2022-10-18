@@ -12,3 +12,8 @@ create table reg_numbers(
     FOREIGN KEY (town_id) REFERENCES reg_cities(id)
 );
 
+-- ADDING ON TABLE 
+CREATE TABLE regTest(
+    id serial primary key,
+    reg text not null
+);
