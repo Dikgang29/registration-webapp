@@ -13,6 +13,9 @@
 </head>
 <body>
     <div class="container">
+        <div class="align">
+
+        
         <h1>REGISTRATION APP</h1>
         <form action="/reg_number" method="post">
         <div class="flashSucces">
@@ -46,12 +49,21 @@
            </div>
         </form>
 
+        <div class="clearBtn">
+        <form action="/clear" method="post">
+        <input type="submit" value="CLEAR ALL">
+        </form>
+
+    </div
+
         <div class="container">
             {{#each testing}}
         <div class="regDisplay">{{reg}}</div>
         {{/each}}
         </div>
+        </div>
     </div>
 
+    <script src="flash-fadetime.js"></script>
 </body>
 </html>

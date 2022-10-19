@@ -75,9 +75,24 @@ app.get('/reg_number',(req,res)=>{
 app.post('/town_based', async (req,res)=>{
     const {reg_number} = req.body;
     console.log(await regBD.fromOneTown(reg_number));
+    res.redirect('/')
 });
 
-// app.get('/reg_number',(req,res)=>{
+//deleting all regisrations
+app.post('/clear', (req,res)=>{
+    req.flash('success', 'All the registrations have been cleared');
+    regBD.deleteAllREg();
+    res.redirect('/')
+})
+
+// app.get('/filter',async (req,res)=>{
+
+//     const {reg_number} = req.body;
+//     const filter = await regBD.fromOneTown(reg_number);
+//     res.render('filter',{
+
+//     })
+
 
 // })
 

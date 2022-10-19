@@ -46,11 +46,17 @@ module.exports = function RegistrationDatabase(db){
         }
     }
 
+    async function deleteAllREg(){
+        await db.none('Delete FROM regTest;')
+   }
+
 
     return{
         checkAll,
         addREgInDB,
         allTests,
-        fromOneTown
+        fromOneTown,
+        deleteAllREg
+
     }
 }
