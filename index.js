@@ -91,9 +91,8 @@ app.post('/clear', (req,res)=>{
 //     const filter = await regBD.fromOneTown(reg_number);
 //     res.render('filter',{
 
+//         filter
 //     })
-
-
 // })
 
 const PORT = process.env.PORT || 3010
