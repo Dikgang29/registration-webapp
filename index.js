@@ -48,11 +48,10 @@ app.use(express.static('public'));
 
 app.get('/',  async (req,res)=>{
 
-    const testing = await regBD.allTests();
-    // console.log(testing);
+    const showAllReg = await regBD.getAllReg();
     
     res.render('index',{
-        testing
+        showAllReg
     })
 })
 
@@ -63,19 +62,26 @@ app.post('/reg_number', async (req,res)=>{
     if(!regInput){
         req.flash('error', 'Please enter the town registration and then select the ADD button');
     } else if(regInput){
-         await regBD.addREgInDB(townRegNumber);
+         await regBD.insertReg(townRegNumber);
     } 
     res.redirect('/')
 });
 
-app.get('/reg_number',(req,res)=>{
+app.get('/reg_number', async (req,res)=>{
 
-
+    
 });
+
+// radio buttom post from
 app.post('/town_based', async (req,res)=>{
     const {reg_number} = req.body;
-    console.log(await regBD.fromOneTown(reg_number));
-    res.redirect('/')
+    const test =await regBD.townFilter(reg_number);
+    // console.log(await regBD.townFilter(reg_number));
+    console.log(test)
+    // res.redirect('/reg_numbers')
+    res.render('index',{
+        test
+    })
 });
 
 //deleting all regisrations
@@ -85,15 +91,15 @@ app.post('/clear', (req,res)=>{
     res.redirect('/')
 })
 
-// app.get('/filter',async (req,res)=>{
+app.get('/reg_numbers',async (req,res)=>{
 
-//     const {reg_number} = req.body;
-//     const filter = await regBD.fromOneTown(reg_number);
-//     res.render('filter',{
-
-//         filter
-//     })
-// })
+    const {reg_number} = req.body;
+    const filter = await regBD.townFilter(reg_number);
+    console.log(filter);
+    res.render('index',{
+        filter
+    })
+})
 
 const PORT = process.env.PORT || 3010
 app.listen(PORT, ()=>{

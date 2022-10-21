@@ -11,7 +11,4 @@ values  ('NB','Bergville'),
     ('NN','Newcastle');
 
 
-    -- grant 
-    GRANT ALL PRIVILEGES on TABLE reg_cities TO reg_admin;
-    GRANT ALL PRIVILEGES on TABLE regTest TO reg_admin;
-    GRANT ALL PRIVILEGES on SEQUENCE regTest_id_seq TO reg_admin;
+   

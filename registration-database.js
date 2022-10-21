@@ -1,6 +1,7 @@
 module.exports = function RegistrationDatabase(db){
 
 
+    let getReg;
     // async function addREgInDB(reg){
     //     await db.none('INSERT INTO regTest (reg) values ($1);',[reg])
     // }
@@ -17,46 +18,51 @@ module.exports = function RegistrationDatabase(db){
         }
     }
 
-    async function checkAll(){
+    async function insertReg(reg){
+        const townReg = reg.toUpperCase();
+        if(townReg.startsWith('NB')){
+            await db.none('INSERT INTO reg_numbers (registrations,town_id) values ($1,$2);',[reg,1]);
+        }else if(townReg.startsWith('ND')){
+            await db.none('INSERT INTO reg_numbers (registrations,town_id) values ($1,$2);',[reg,2]);
+        }else if(townReg.startsWith('NA')){
+            await db.none('INSERT INTO reg_numbers (registrations,town_id) values ($1,$2);',[reg,3]);
+        }else if(townReg.startsWith('NN')){
+            await db.none('INSERT INTO reg_numbers (registrations,town_id) values ($1,$2);',[reg,4]);
+        }
+    }
+
+    async function getAllTowns(){
         const allTowns = await db.manyOrNone('Select * from reg_cities;')
         return allTowns;
     }
 
     // all from test table
-    async function allTests(){
-        const allReg = await db.manyOrNone('Select * from regTest;')
-        return allReg;
+
+    async function townFilter(regTownID){
+        const fromTown = await db.any('select * from reg_numbers where town_id = $1;',[regTownID]);
+        return fromTown;
     }
 
     // filtering
-
-    async function fromOneTown(townValue){
-        if(townValue === 'NB'){
-            const fromBergVille = await db.manyOrNone(`Select * from regTest where reg LIKE 'NB%';`);
-            return fromBergVille;
-        } else if(townValue === 'ND'){
-            const fromDurban = await db.manyOrNone(`Select * from regTest where reg LIKE 'ND%';`);
-            return fromDurban;
-        }else if(townValue === 'NA'){
-            const fromHarding = await db.manyOrNone(`Select * from regTest where reg LIKE 'NA%';`);
-            return fromHarding;
-        }else if(townValue === 'NN'){
-            const fromNewcastle = await db.manyOrNone(`Select * from regTest where reg LIKE 'NN%';`);
-            return fromNewcastle;
-        }
-    }
 
     async function deleteAllREg(){
         await db.none('Delete FROM regTest;')
    }
 
+   async function getAllReg(){
+    const allReg = await db.manyOrNone('Select * from reg_numbers;')
+    return allReg;
+}
+
+
 
     return{
-        checkAll,
+        getAllTowns,
         addREgInDB,
-        allTests,
-        fromOneTown,
-        deleteAllREg
-
+        getAllReg,
+        // fromOneTown,
+        deleteAllREg,
+        insertReg,
+        townFilter
     }
 }

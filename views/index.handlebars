@@ -34,16 +34,16 @@
            <form action="/town_based" method="post">
            <div class="radio">
             <label for=""> 
-                <input type="radio" name="reg_number" id="" value="NB">Bergville
+                <input type="radio" name="reg_number" id="" value="1">Bergville
             </label>
             <label for=""> 
-                <input type="radio" name="reg_number" id="" value="ND">Durban
+                <input type="radio" name="reg_number" id="" value="2">Durban
             </label>
             <label for="">
-                <input type="radio" name="reg_number" id="" value="NA">Harding
+                <input type="radio" name="reg_number" id="" value="3">Harding
             </label>
             <label for="">
-                <input type="radio" name="reg_number" id="" value="NN">Newcastle
+                <input type="radio" name="reg_number" id="" value="4">Newcastle
             </label><br>
             <input type="submit" value="SHOW">
            </div>
@@ -57,8 +57,14 @@
     </div
 
         <div class="container">
-            {{#each testing}}
-        <div class="regDisplay">{{reg}}</div>
+            {{#each showAllReg}}
+        <div class="regDisplay">{{registrations}}</div>
+        {{/each}}
+        </div>
+
+        <div class="container">
+            {{#each test}}
+        <div class="regDisplay">{{registrations}}</div>
         {{/each}}
         </div>
         </div>
