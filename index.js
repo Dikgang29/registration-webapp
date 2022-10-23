@@ -67,20 +67,19 @@ app.post('/reg_number', async (req,res)=>{
     res.redirect('/')
 });
 
-app.get('/reg_number', async (req,res)=>{
 
-    
-});
 
 // radio buttom post from
 app.post('/town_based', async (req,res)=>{
     const {reg_number} = req.body;
-    const test =await regBD.townFilter(reg_number);
-    // console.log(await regBD.townFilter(reg_number));
-    console.log(test)
-    // res.redirect('/reg_numbers')
+
+    if(!reg_number){
+        req.flash('error','Please check a town you want to filter for')
+        res.redirect('/')
+    }
+    const filtereReg =await regBD.townFilter(reg_number);
     res.render('index',{
-        test
+        filtereReg
     })
 });
 

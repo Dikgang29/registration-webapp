@@ -12,6 +12,7 @@
     <title>Registration App</title>
 </head>
 <body>
+
     <div class="container">
         <div class="align">
 
@@ -27,11 +28,11 @@
            <div>
              <label for="">Registration Number : </label>
             <input type="text" name="regInput"><br>
-            <input type="submit" value="ADD">
+            <input class="btn btn-primary" type="submit" value="ADD">
            </div>
            </form>
 
-           <form action="/town_based" method="post">
+           <form action="/town_based" method="post" class="form-check">
            <div class="radio">
             <label for=""> 
                 <input type="radio" name="reg_number" id="" value="1">Bergville
@@ -43,16 +44,20 @@
                 <input type="radio" name="reg_number" id="" value="3">Harding
             </label>
             <label for="">
-                <input type="radio" name="reg_number" id="" value="4">Newcastle
+                <input class="form-check-input" type="radio" name="reg_number" id="" value="4">Newcastle
             </label><br>
-            <input type="submit" value="SHOW">
+            <input type="submit" value="FILTER">
+            <button><a href="/">SHOW ALL</a></button>
            </div>
+           <div>
+        </div>
         </form>
 
         <div class="clearBtn">
         <form action="/clear" method="post">
         <input type="submit" value="CLEAR ALL">
         </form>
+        
 
     </div
 
@@ -63,7 +68,7 @@
         </div>
 
         <div class="container">
-            {{#each test}}
+            {{#each filtereReg}}
         <div class="regDisplay">{{registrations}}</div>
         {{/each}}
         </div>
