@@ -1,12 +1,17 @@
 .flashSucces{
     color:green;
+	font-weight: bold;
+	font-family: 'Brush Script MT', cursive;
 }
 .flashError{
  color: red;
+ font-weight: bold;
+	font-family: 'Brush Script MT', cursive;
 }
 
 .regDisplay{
-    background-color: green;
+    background-color: #d3eef4;
+	color: black;
 	border: 0.1em solid;
 	border-radius: 0.25em;
 	padding: 1em;
@@ -14,8 +19,10 @@
 	width: 7em;
 	text-align: center;
 	font-weight: bold;
+	font-family: 'Brush Script MT', cursive;
 	float: left;   
 }
+
 
 /* .align{
 	text-align: center;
@@ -25,5 +32,23 @@
 }
 
 h1{
-	background-color: gold;
+	background-color: #f1eec8;
+}
+
+.radio{
+	margin: 20px;
+}
+label{
+	margin: 5px 5px;
+	font-family: 'Brush Script MT', cursive;
+	font-weight: 750;
+}
+input{
+	margin: 5px 5px;
+}
+body{
+	background-color: #f3a46c;
+}
+a{
+	text-decoration: none;
 }

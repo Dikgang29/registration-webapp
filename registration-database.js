@@ -2,22 +2,6 @@ module.exports = function RegistrationDatabase(db){
 
 
     let getReg;
-    // async function addREgInDB(reg){
-    //     await db.none('INSERT INTO regTest (reg) values ($1);',[reg])
-    // }
-    async function addREgInDB(reg){
-        const townReg = reg.toUpperCase();
-        if(townReg.startsWith('NB')){
-            await db.none('INSERT INTO regTest (reg) values ($1);',[reg]);
-        }else if(townReg.startsWith('ND')){
-            await db.none('INSERT INTO regTest (reg) values ($1);',[reg]);
-        }else if(townReg.startsWith('NA')){
-            await db.none('INSERT INTO regTest (reg) values ($1);',[reg]);
-        }else if(townReg.startsWith('NN')){
-            await db.none('INSERT INTO regTest (reg) values ($1);',[reg]);
-        }
-    }
-
     async function insertReg(reg){
         const townReg = reg.toUpperCase();
         if(townReg.startsWith('NB')){
@@ -45,8 +29,9 @@ module.exports = function RegistrationDatabase(db){
 
     // filtering
 
+
     async function deleteAllREg(){
-        await db.none('Delete FROM regTest;')
+        await db.none('Delete FROM reg_numbers;')
    }
 
    async function getAllReg(){
@@ -54,15 +39,19 @@ module.exports = function RegistrationDatabase(db){
     return allReg;
 }
 
+    async function checkReg(){
+        const regList = await db.manyOrNone('Select registrations from reg_numbers;')
+        return regList;
+    }
+
 
 
     return{
         getAllTowns,
-        addREgInDB,
         getAllReg,
-        // fromOneTown,
         deleteAllREg,
         insertReg,
-        townFilter
+        townFilter,
+        checkReg
     }
 }
