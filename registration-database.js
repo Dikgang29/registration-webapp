@@ -1,9 +1,9 @@
 module.exports = function RegistrationDatabase(db){
 
 
-    let getReg;
+    // let getReg;
     async function insertReg(reg){
-        const townReg = reg.toUpperCase();
+        const townReg = reg;
         if(townReg.startsWith('NB')){
             await db.none('INSERT INTO reg_numbers (registrations,town_id) values ($1,$2);',[reg,1]);
         }else if(townReg.startsWith('ND')){
@@ -15,10 +15,10 @@ module.exports = function RegistrationDatabase(db){
         }
     }
 
-    async function getAllTowns(){
-        const allTowns = await db.manyOrNone('Select * from reg_cities;')
-        return allTowns;
-    }
+    // async function getAllTowns(){
+    //     const allTowns = await db.manyOrNone('Select * from reg_cities;')
+    //     return allTowns;
+    // }
 
     // all from test table
 
@@ -39,26 +39,26 @@ module.exports = function RegistrationDatabase(db){
     return allReg;
 }
 
-    async function checkReg(){
-        const regList = await db.manyOrNone('Select registrations from reg_numbers;')
-        return regList;
-    }
+    // async function checkReg(){
+    //     const regList = await db.manyOrNone('Select registrations from reg_numbers;')
+    //     return regList;
+    // }
 
-    //finding duplicates
-    async function checkingDuplictes(reg){
-        const checkCount = await db.oneOrNone('SELECT COUNT(*) from reg_numbers where registrations = $1;',[reg])
-        return checkCount.count;
-    }
+    // //finding duplicates
+    // async function checkingDuplictes(reg){
+    //     const checkCount = await db.oneOrNone('SELECT COUNT(*) from reg_numbers where registrations = $1;',[reg])
+    //     return checkCount.count;
+    // }
 
 
 
     return{
-        getAllTowns,
+        // getAllTowns,
         getAllReg,
         deleteAllREg,
         insertReg,
         townFilter,
-        checkReg,
-        checkingDuplictes
+        // checkReg,
+        // checkingDuplictes
     }
 }

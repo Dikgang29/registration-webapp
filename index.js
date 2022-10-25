@@ -50,44 +50,39 @@ app.get('/',  async (req,res)=>{
 
     const showAllReg = await regBD.getAllReg();
     
+    // const tests = await regBD.checkReg();
+    
+    // showAllReg.forEach(function(test) {
+    //     console.log(test.registrations);
+    // });
+    
     res.render('index',{
         showAllReg
     })
 })
 
-// app.post('/reg_number', async (req,res)=>{
-//     const {regInput} =  req.body;
-    
-//     const townRegNumber = regInput.toUpperCase();
-//     if(!regInput){
-//         req.flash('error', 'Please enter the town registration and then select the ADD button');
-
-//     } else if(regInput){
-//         // testing 
-//         // const testing1 = await regBD.checkingDuplictes(regInput);
-//         // if(testing1 != 0){
-//         //     req.flash('error', 'Registration already exists');
-//         //     res.redirect('/')
-            
-//         // } else if(testing1 == 0){
-//         //     req.flash('success', 'Registration added succefully');
-//         //     await regBD.insertReg(townRegNumber);
-//         // res.redirect('/')
-//         // }
-//          await regBD.insertReg(townRegNumber);
-//     } 
-//     res.redirect('/')
-// });
 app.post('/reg_number', async (req,res)=>{
     const {regInput} =  req.body;
     
     const townRegNumber = regInput.toUpperCase();
     if(!regInput){
         req.flash('error', 'Please enter the town registration and then select the ADD button');
+
     } else if(regInput){
+        // testing 
+        // const testing1 = await regBD.checkingDuplictes(regInput);
+        // if(testing1 != 0){
+        //     req.flash('error', 'Registration already exists');
+        //     res.redirect('/')
+            
+        // } else if(testing1 == 0){
+        //     req.flash('success', 'Registration added succefully');
+        //     await regBD.insertReg(townRegNumber);
+        // res.redirect('/')
+        // }
          await regBD.insertReg(townRegNumber);
-         res.redirect('/')
     } 
+    res.redirect('/')
 });
 
 // radio buttom post form 
