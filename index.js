@@ -72,17 +72,17 @@ app.post('/reg_number', async (req,res)=>{
         const testing1 = await regBD.checkingDuplictes(regInput);
         if(testing1 != 0){
             req.flash('error', 'Registration already exists');
+    res.redirect('/')
+            
         } else if(testing1 == 0){
             req.flash('success', 'Registration added succefully');
             await regBD.insertReg(townRegNumber);
+    res.redirect('/')
 
         }
-       
-
-    
         //  await regBD.insertReg(townRegNumber);
     } 
-    res.redirect('/')
+    // res.redirect('/')
 });
 
 // radio buttom post form 
