@@ -86,8 +86,8 @@ app.post('/reg_number', async (req,res)=>{
         req.flash('error', 'Please enter the town registration and then select the ADD button');
     } else if(regInput){
          await regBD.insertReg(townRegNumber);
+         res.redirect('/')
     } 
-    res.redirect('/')
 });
 
 // radio buttom post form 
