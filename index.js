@@ -67,6 +67,8 @@ app.post('/reg_number', async (req,res)=>{
     const townRegNumber = regInput.toUpperCase();
     if(!regInput){
         req.flash('error', 'Please enter the town registration and then select the ADD button');
+    res.redirect('/')
+
     } else if(regInput){
         // testing 
         const testing1 = await regBD.checkingDuplictes(regInput);
