@@ -49,10 +49,10 @@ app.use(express.static('public'));
 app.get('/',  async (req,res)=>{
 
     const showAllReg = await regBD.getAllReg();
-
+    
     // const tests = await regBD.checkReg();
     
-    // tests.forEach(function(test) {
+    // showAllReg.forEach(function(test) {
     //     console.log(test.registrations);
     // });
     
@@ -65,31 +65,26 @@ app.post('/reg_number', async (req,res)=>{
     const {regInput} =  req.body;
     
     const townRegNumber = regInput.toUpperCase();
-    const regArrs = await regBD.checkReg();
     if(!regInput){
         req.flash('error', 'Please enter the town registration and then select the ADD button');
     } else if(regInput){
-        let singleReg;
-        // check inside the array and return the registrations key in the object
-        regArrs.forEach( function(reg) {
-         singleReg = reg.registrations;
-         // if the registrations are the same return an error message
-        if(regInput === singleReg){
-            req.flash('error', 'The registration already exists');
+        const testing1 = await regBD.checkingDuplictes(regInput);
+        if(testing1 != 0){
+            req.flash('error', 'Registration already exists');
+        } else{
+            req.flash('success', 'Registration added succefully');
+            await regBD.insertReg(townRegNumber);
+
         }
-    });
-    // if the registration des not exist we insert
-    if(regInput !== singleReg){
-        req.flash('success', 'The registration has been added successfully');
-        await regBD.insertReg(townRegNumber);
-    }
+       
+
+    
+        //  await regBD.insertReg(townRegNumber);
     } 
     res.redirect('/')
 });
 
-
-
-// radio buttom post from
+// radio buttom post form 
 app.post('/town_based', async (req,res)=>{
     const {reg_number} = req.body;
 
@@ -109,16 +104,6 @@ app.post('/clear', (req,res)=>{
     regBD.deleteAllREg();
     res.redirect('/')
 })
-
-// app.get('/reg_numbers',async (req,res)=>{
-
-//     const {reg_number} = req.body;
-//     const filter = await regBD.townFilter(reg_number);
-//     console.log(filter);
-//     res.render('index',{
-//         filter
-//     })
-// })
 
 const PORT = process.env.PORT || 3010
 app.listen(PORT, ()=>{

@@ -44,6 +44,12 @@ module.exports = function RegistrationDatabase(db){
         return regList;
     }
 
+    //finding duplicates
+    async function checkingDuplictes(reg){
+        const checkCount = await db.oneOrNone('SELECT COUNT(*) from reg_numbers where registrations = $1;',[reg])
+        return checkCount.count;
+    }
+
 
 
     return{
@@ -52,6 +58,7 @@ module.exports = function RegistrationDatabase(db){
         deleteAllREg,
         insertReg,
         townFilter,
-        checkReg
+        checkReg,
+        checkingDuplictes
     }
 }
