@@ -82,7 +82,7 @@ app.post('/reg_number', async (req,res)=>{
 
         // }
          await regBD.insertReg(townRegNumber);
-        res.redirect('/')
+        // res.redirect('/')
     } 
     res.redirect('/')
 
