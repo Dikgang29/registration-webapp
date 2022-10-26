@@ -45,10 +45,10 @@ module.exports = function RegistrationDatabase(db){
     // }
 
     // //finding duplicates
-    // async function checkingDuplictes(reg){
-    //     const checkCount = await db.oneOrNone('SELECT COUNT(*) from reg_numbers where registrations = $1;',[reg])
-    //     return checkCount.count;
-    // }
+    async function checkingDuplictes(reg){
+        const checkCount = await db.oneOrNone('SELECT COUNT(*) from reg_numbers where registrations = $1;',[reg])
+        return checkCount.count;
+    }
 
 
 
@@ -59,6 +59,6 @@ module.exports = function RegistrationDatabase(db){
         insertReg,
         townFilter,
         // checkReg,
-        // checkingDuplictes
+        checkingDuplictes
     }
 }
