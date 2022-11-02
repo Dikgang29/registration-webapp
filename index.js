@@ -54,30 +54,61 @@ app.get('/',  async (req,res)=>{
     })
 })
 
+// app.post('/reg_number', async (req,res)=>{
+//     const {regInput} =  req.body;
+
+//     const townRegNumber = regInput.toUpperCase();
+//     const getTownCode = townRegNumber.slice(0,2)
+
+
+//     // reg code array
+//     const test = await regBD.setTownCode();
+//     if(!regInput){
+//         req.flash('error', 'Please enter the town registration and then select the ADD button');
+//     } 
+//     else if(regInput){
+//         // testing 
+//         // const testing1 = await regBD.checkingDuplictes(regInput);
+//         // if(testing1 != 0){
+//         //     req.flash('error', 'Registration already exists');
+//         // //     res.redirect('/')
+//         // }
+        
+        
+//         for (let i = 0; i < test.length; i++) {
+//             // console.log(test[i].reg_code)
+//             const getEachCode = test[i].reg_code;
+//             if (getEachCode === getTownCode){
+//                 req.flash('success', 'Registration added succefully');
+//                 await regBD.insertReg(townRegNumber);
+//             }else if(getEachCode !== getTownCode){
+//                 req.flash('error', 'Invalid town code');
+//             }
+//           }
+//             // req.flash('success', 'Registration added succefully');
+//             // await regBD.insertReg(townRegNumber);
+
+        
+//     } 
+//     res.redirect('/')
+// });
 app.post('/reg_number', async (req,res)=>{
     const {regInput} =  req.body;
-    
     const townRegNumber = regInput.toUpperCase();
-    if(!regInput){
-        req.flash('error', 'Please enter the town registration and then select the ADD button');
 
-    } 
-    else if(regInput){
-        // testing 
-        const testing1 = await regBD.checkingDuplictes(regInput);
-        if(testing1 != 0){
-            req.flash('error', 'Registration already exists');
-        //     res.redirect('/')
-            
-        } 
-        else{
-            req.flash('success', 'Registration added succefully');
-            await regBD.insertReg(townRegNumber);
-
-        }
-    } 
+    if(!/^[A-Z]{2}\s[0-9]{3}(\s|\-)?[0-9]{3}$/.test(townRegNumber)){
+        req.flash('error','Please enter a valid reistration')
+    } else if(townRegNumber){
+        regBD.insertReg(townRegNumber);
+        req.flash('success','Registration number added successfully')
+    } else{
+        req.flash('error','Please enter a registration and press the add button')
+    }
     res.redirect('/')
 });
+
+
+
 
 // radio buttom post form 
 app.post('/town_based', async (req,res)=>{
