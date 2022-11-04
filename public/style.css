@@ -1,12 +1,12 @@
 .flashSucces{
     color:green;
 	font-weight: bold;
-	font-family: 'Brush Script MT', cursive;
+	font-family: Verdana;
 }
 .flashError{
  color: red;
  font-weight: bold;
-	font-family: 'Brush Script MT', cursive;
+	font-family: Verdana;
 }
 
 .regDisplay{
@@ -19,7 +19,7 @@
 	width: 7em;
 	text-align: center;
 	font-weight: bold;
-	font-family: 'Brush Script MT', cursive;
+	font-family: sans-serif;
 	float: left;   
 }
 
@@ -40,7 +40,7 @@ h1{
 }
 label{
 	margin: 5px 5px;
-	font-family: 'Brush Script MT', cursive;
+	font-family:  Arial Narrow;
 	font-weight: 750;
 }
 input{

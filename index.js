@@ -95,15 +95,19 @@ app.get('/',  async (req,res)=>{
 app.post('/reg_number', async (req,res)=>{
     const {regInput} =  req.body;
     const townRegNumber = regInput.toUpperCase();
+    const testing1 = await regBD.checkingDuplictes(townRegNumber);
 
-    if(!/^[A-Z]{2}\s[0-9]{3}(\s|\-)?[0-9]{3}$/.test(townRegNumber)){
-        req.flash('error','Please enter a valid reistration')
-    } else if(townRegNumber){
-        regBD.insertReg(townRegNumber);
-        req.flash('success','Registration number added successfully')
-    } else{
-        req.flash('error','Please enter a registration and press the add button')
-    }
+    // if(!/^[A-Z]{2}\s[0-9]{3}(\s|\-)?[0-9]{3}$/.test(townRegNumber)){
+        if(!regInput){
+         req.flash('error','Please enter a registration and press the add button')
+    } else if(regInput){
+         if(testing1 > Number(0)){
+            req.flash('error', 'Registration already exists');
+        } else{
+            regBD.insertReg(townRegNumber);
+            req.flash('success','Registration number added successfully')
+        }
+    } 
     res.redirect('/')
 });
 
@@ -116,12 +120,16 @@ app.post('/town_based', async (req,res)=>{
 
     if(!reg_number){
         req.flash('error','Please check a town you want to filter for')
-        res.redirect('/')
     }
+    // else if(reg_number){
+        
+    // }
     const filtereReg =await regBD.townFilter(reg_number);
     res.render('index',{
         filtereReg
     })
+    // res.redirect('/')
+
 });
 
 //deleting all regisrations
