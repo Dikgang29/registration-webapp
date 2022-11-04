@@ -11,4 +11,7 @@ values  ('NB','Bergville'),
     ('NN','Newcastle');
 
 
-   
+-- database for my unit tests
+create database reg_test;
+create role reg_test_admin login password 'registration';
+grant all privileges on database reg_test to reg_test_admin;
