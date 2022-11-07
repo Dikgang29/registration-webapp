@@ -34,6 +34,11 @@ module.exports = function RegistrationDatabase(db){
         const checkCount = await db.oneOrNone('SELECT count(*) from reg_numbers WHERE registrations = $1;',[reg])
         return checkCount.count;
     }
+
+    async function checkTownCode(reg){
+        const townRegCode = await db.oneOrNone('SELECT count(*) from reg_cities WHERE reg_code = $1;',[reg.slice(0,2)])
+        return townRegCode.count;
+    }
     
     async function deleteAllREg(){
         await db.none('Delete FROM reg_numbers;')
@@ -47,5 +52,6 @@ module.exports = function RegistrationDatabase(db){
         townFilter,
         checkingDuplictes,
         setTownCode,
+        checkTownCode
     }
 }

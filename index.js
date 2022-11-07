@@ -59,18 +59,24 @@ app.get('/',  async (req,res)=>{
 app.post('/reg_number', async (req,res)=>{
     const {regInput} =  req.body;
     const townRegNumber = regInput.toUpperCase();
-    const testing1 = await regBD.checkingDuplictes(townRegNumber);
+    const regNumber = await regBD.checkingDuplictes(townRegNumber);
+    const regID = await regBD.checkTownCode(townRegNumber);
 
-    // if(!/^[A-Z]{2}\s[0-9]{3}(\s|\-)?[0-9]{3}$/.test(townRegNumber)){
-        if(!regInput){
-         req.flash('error','Please enter a registration and press the add button')
+
+    if(!/^[A-Z]{2}\s[0-9]{3}(\s|\-)?[0-9]{3}$/.test(townRegNumber)){
+         req.flash('error','Invalid registration input')
     } else if(regInput){
-         if(testing1 > Number(0)){
-            req.flash('error', 'Registration already exists');
-        } else{
-            regBD.insertReg(townRegNumber);
-            req.flash('success','Registration number added successfully')
+        if(regID != Number(1)){
+            req.flash('error','Invalid town code')
+        } else {
+            if(regNumber > Number(0)){
+                req.flash('error', 'Registration already exists');
+            } else{
+                regBD.insertReg(townRegNumber);
+                req.flash('success','Registration number added successfully')
+            }
         }
+       
     } 
     res.redirect('/')
 });
