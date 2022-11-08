@@ -6,14 +6,10 @@ const flash = require('express-flash');
 const pgp = require('pg-promise')();
 
 //factory function
-const Registration = require('./reg-function');
 const RegistrationDatabase = require('./registration-database')
-
-
+const RegistrationRoutes = require('./routes/registration-routes');
 
 const app = express();
-
-const registration = Registration();
 //database connection
 const DATABASE_URL =  process.env.DATABASE_URL || `postgresql://reg_admin:registration@localhost:5432/reg_app`
 
@@ -27,7 +23,7 @@ if(process.env.NODE_ENV == 'production'){
 }
 const db = pgp(config);
 const regBD = RegistrationDatabase(db)
-
+const regRoutes = RegistrationRoutes(regBD);
 
 //setting up handlebars
 app.engine('handlebars', exphb.engine({defaultLayout : false}));
@@ -46,68 +42,11 @@ app.use(flash());
 
 app.use(express.static('public'));
 
-app.get('/',  async (req,res)=>{
-
-    const showAllReg = await regBD.getAllReg();
-    res.render('index',{
-        showAllReg
-    })
-})
-
-
-
-app.post('/reg_number', async (req,res)=>{
-    const {regInput} =  req.body;
-    const townRegNumber = regInput.toUpperCase();
-    const regNumber = await regBD.checkingDuplictes(townRegNumber);
-    const regID = await regBD.checkTownCode(townRegNumber);
-
-
-    if(!/^[A-Z]{2}\s[0-9]{3}(\s|\-)?[0-9]{3}$/.test(townRegNumber)){
-         req.flash('error','Invalid registration input')
-    } else if(regInput){
-        if(regID != Number(1)){
-            req.flash('error','Invalid town code')
-        } else {
-            if(regNumber > Number(0)){
-                req.flash('error', 'Registration already exists');
-            } else{
-                regBD.insertReg(townRegNumber);
-                req.flash('success','Registration number added successfully')
-            }
-        }
-       
-    } 
-    res.redirect('/')
-});
-
-
-
-
-// radio buttom post form 
-app.post('/town_based', async (req,res)=>{
-    const {reg_number} = req.body;
-
-    if(!reg_number){
-        req.flash('error','Please check a town you want to filter for')
-    }
-    // else if(reg_number){
-        
-    // }
-    const filtereReg =await regBD.townFilter(reg_number);
-    res.render('index',{
-        filtereReg
-    })
-    // res.redirect('/')
-
-});
-
-//deleting all regisrations
-app.post('/clear', (req,res)=>{
-    req.flash('success', 'All the registrations have been cleared successfully');
-    regBD.deleteAllREg();
-    res.redirect('/')
-})
+// routes
+app.get('/',regRoutes.index)
+app.post('/reg_number',regRoutes.postRegNumber);
+app.post('/town_based', regRoutes.filter)
+app.post('/clear', regRoutes.deleteReg);
 
 const PORT = process.env.PORT || 3010
 app.listen(PORT, ()=>{
